@@ -52,4 +52,4 @@ firmatainclude_HEADERS = \
 firmataincludedir = ${prefix}/include/firmata
 
 htmldoc: $(top_builddir)/Doxyfile
-	doxygen $<
+	$(DOXYGEN) $<
