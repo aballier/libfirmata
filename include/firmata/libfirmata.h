@@ -65,24 +65,24 @@
  * Header common to all firmata messages.
  */
 #define COMMON_HEADER \
-		uint8_t start_code;\
-		uint8_t msg_type
+    uint8_t start_code;\
+uint8_t msg_type
 
 /**
  * @brief
  * Trailer common to all firmata messages.
  */
 #define COMMON_TRAILER \
-		ssize_t size
+    ssize_t size
 
 /**
  * @brief
  * Generic firmata message.
  */
 struct firmata_msg {
-	COMMON_HEADER; /*!< Header common to all messages */
-	uint8_t data[MAX_DATA_BYTES]; /*!< Message data */
-	COMMON_TRAILER; /*!< Trailer common to all messages */
+    COMMON_HEADER; /*!< Header common to all messages */
+    uint8_t data[MAX_DATA_BYTES]; /*!< Message data */
+    COMMON_TRAILER; /*!< Trailer common to all messages */
 };
 
 /**
@@ -92,11 +92,11 @@ struct firmata_msg {
  * Passed as argument to #REPORT_FIRMWARE callbacks.
  */
 struct firmware_info_msg {
-	COMMON_HEADER; /*!< Header common to all messages */
-	uint8_t major; /*!< Major version */
-	uint8_t minor; /*!< Minor version */
-	char	name[MAX_DATA_BYTES]; /*!< Firmware name */
-	COMMON_TRAILER; /*!< Trailer common to all messages */
+    COMMON_HEADER; /*!< Header common to all messages */
+    uint8_t major; /*!< Major version */
+    uint8_t minor; /*!< Minor version */
+    char	name[MAX_DATA_BYTES]; /*!< Firmware name */
+    COMMON_TRAILER; /*!< Trailer common to all messages */
 };
 
 /**
@@ -104,8 +104,8 @@ struct firmware_info_msg {
  * Capabilities of a single pin.
  */
 struct pin_cap {
-	uint64_t supported_modes; /*!< Bitmask representing the supported modes */
-	uint8_t resolution[MODE_MAX]; /*!< Resolution for each mode */
+    uint64_t supported_modes; /*!< Bitmask representing the supported modes */
+    uint8_t resolution[MODE_MAX]; /*!< Resolution for each mode */
 };
 
 /**
@@ -115,9 +115,9 @@ struct pin_cap {
  * Passed as argument to #CAPABILITY_RESPONSE callbacks.
  */
 struct pin_cap_msg {
-	COMMON_HEADER; /*!< Header common to all messages */
-	struct pin_cap pin_info[MAX_NUM_PINS]; /*!< Capabilities of each pin */
-	COMMON_TRAILER; /*!< Trailer common to all messages */
+    COMMON_HEADER; /*!< Header common to all messages */
+    struct pin_cap pin_info[MAX_NUM_PINS]; /*!< Capabilities of each pin */
+    COMMON_TRAILER; /*!< Trailer common to all messages */
 };
 
 /**
@@ -127,9 +127,9 @@ struct pin_cap_msg {
  * Passed as argument to #ANALOG_MAPPING_RESPONSE callbacks.
  */
 struct analog_map_msg {
-	COMMON_HEADER; /*!< Header common to all messages */
-	uint8_t analog_channel[MAX_NUM_PINS]; /*!< Analog channel corresponding to each pin */
-	COMMON_TRAILER; /*!< Trailer common to all messages */
+    COMMON_HEADER; /*!< Header common to all messages */
+    uint8_t analog_channel[MAX_NUM_PINS]; /*!< Analog channel corresponding to each pin */
+    COMMON_TRAILER; /*!< Trailer common to all messages */
 };
 
 /**
@@ -139,11 +139,11 @@ struct analog_map_msg {
  * Passed as argument to #PIN_STATE_RESPONSE callbacks.
  */
 struct pin_state_msg {
-	COMMON_HEADER; /*!< Header common to all messages */
-	uint8_t num; /*!< Pin number */
-	uint8_t mode; /*!< Pin mode */
-	uint32_t value; /*!< Pin value */
-	COMMON_TRAILER; /*!< Trailer common to all messages */
+    COMMON_HEADER; /*!< Header common to all messages */
+    uint8_t num; /*!< Pin number */
+    uint8_t mode; /*!< Pin mode */
+    uint32_t value; /*!< Pin value */
+    COMMON_TRAILER; /*!< Trailer common to all messages */
 };
 
 /**
@@ -153,9 +153,9 @@ struct pin_state_msg {
  * Passed as argument to #VERSION_REPORT callbacks.
  */
 struct protocol_version_msg {
-	uint8_t start_code; /*!< Message start code (to be ignored) */
-	uint8_t major; /*!< Major version */
-	uint8_t minor; /*!< Minor version */
+    uint8_t start_code; /*!< Message start code (to be ignored) */
+    uint8_t major; /*!< Major version */
+    uint8_t minor; /*!< Minor version */
 };
 
 /**
@@ -163,8 +163,8 @@ struct protocol_version_msg {
  * Value of an encoder.
  */
 struct encoder_value {
-	uint8_t direction; /*!< Direction */
-	uint32_t position; /*!< Position */
+    uint8_t direction; /*!< Direction */
+    uint32_t position; /*!< Position */
 };
 
 /**
@@ -174,9 +174,9 @@ struct encoder_value {
  * Passed as argument to #ENCODER_DATA callbacks.
  */
 struct encoder_values_msg {
-	COMMON_HEADER; /*!< Header common to all messages */
-	struct encoder_value encoders[MAX_ENCODERS]; /*!< Value of each encoder */
-	COMMON_TRAILER; /*!< Trailer common to all messages */
+    COMMON_HEADER; /*!< Header common to all messages */
+    struct encoder_value encoders[MAX_ENCODERS]; /*!< Value of each encoder */
+    COMMON_TRAILER; /*!< Trailer common to all messages */
 };
 
 /**
@@ -186,12 +186,12 @@ struct encoder_values_msg {
  * Passed as argument to #I2C_REPLY callbacks.
  */
 struct firmata_i2c_msg {
-	COMMON_HEADER; /*!< Header common to all messages */
+    COMMON_HEADER; /*!< Header common to all messages */
     uint16_t addr; /*!< I2C address from whom the message comes */
     uint16_t reg; /*!< Register it comes from */
     ssize_t len; /*!< Length of the data */
     uint8_t data[MAX_DATA_BYTES]; /*!< Data */
-	COMMON_TRAILER; /*!< Trailer common to all messages */
+    COMMON_TRAILER; /*!< Trailer common to all messages */
 };
 
 /** @} */
@@ -206,12 +206,12 @@ struct firmata_i2c_msg {
  * @brief Global state of the firmata device.
  */
 struct firmata_global_data {
-	struct protocol_version_msg protocol_version;        /*!< Protocol version */
-	struct firmware_info_msg    fw;                      /*!< Firmware information */
-	struct pin_cap_msg          pin_cap;                 /*!< Pin capabilities */
-	struct analog_map_msg       analog_map;              /*!< Analog map */
-	struct pin_state_msg        pin_state[MAX_NUM_PINS]; /*!< Pin states */
-	struct encoder_values_msg   encoders;                /*!< Encoder states */
+    struct protocol_version_msg protocol_version;        /*!< Protocol version */
+    struct firmware_info_msg    fw;                      /*!< Firmware information */
+    struct pin_cap_msg          pin_cap;                 /*!< Pin capabilities */
+    struct analog_map_msg       analog_map;              /*!< Analog map */
+    struct pin_state_msg        pin_state[MAX_NUM_PINS]; /*!< Pin states */
+    struct encoder_values_msg   encoders;                /*!< Encoder states */
 };
 
 /** @} */
