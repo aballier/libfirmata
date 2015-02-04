@@ -504,7 +504,7 @@ struct firmata_conn *firmata_open(const char* devname, int baudrate)
     struct serial_struct kernel_serial_settings;
     struct firmata_conn *c = NULL;
     struct timespec ts;
-    int ret, bits, i;
+    int ret, bits, i, retry;
 
     if(!(c = malloc(sizeof(struct firmata_conn))))
     {
@@ -573,12 +573,18 @@ struct firmata_conn *firmata_open(const char* devname, int baudrate)
     pthread_create(&c->thd, NULL, waiter_thread, c);
 
     ret = ETIMEDOUT;
-    while(ret == ETIMEDOUT)
+    retry = 5;
+    while(ret == ETIMEDOUT && retry > 0)
     {
         firmata_get_firmware_version(c);
         clock_gettime(CLOCK_REALTIME, &ts);
         ts.tv_sec += 1;
         ret = pthread_cond_timedwait(&c->ready_cond, &c->ready_mutex, &ts);
+        if(ret == ETIMEDOUT)
+        {
+            fprintf(stderr, "Timedout while waiting for response. Retrying another %i time(s)\n", retry);
+            retry--;
+        }
     }
     if(ret) goto open_fail;
 
