@@ -235,7 +235,7 @@ static inline void msg_to_pin_state(const struct firmata_msg *msg, struct pin_st
 
     if(msg->size < 6)
     {
-        fprintf(stderr, "%s: Message is too short (%i)\n", __func__, msg->size);
+        fprintf(stderr, "%s: Message is too short (%zu)\n", __func__, msg->size);
         return;
     }
 
