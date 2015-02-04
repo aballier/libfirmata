@@ -37,7 +37,9 @@
 
 #define MAX_CALLBACKS 20
 
-/*! Represents the state of a connection to a firmata device. */
+/**
+ * @brief Represents the state of a connection to a firmata device.
+ */
 struct firmata_conn {
 	/*! File descriptor of the serial connection */
 	int fd;

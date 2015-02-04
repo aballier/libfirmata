@@ -202,7 +202,9 @@ struct firmata_i2c_msg {
  * @{
  */
 
-/*! Global state of the firmata device. */
+/**
+ * @brief Global state of the firmata device.
+ */
 struct firmata_global_data {
 	struct protocol_version_msg protocol_version;        /*!< Protocol version */
 	struct firmware_info_msg    fw;                      /*!< Firmware information */
@@ -215,8 +217,7 @@ struct firmata_global_data {
 /** @} */
 
 /** 
- * @brief
- * Opaque structure representing a connection to a firmata device.
+ * @brief Opaque structure representing a connection to a firmata device.
  */
 struct firmata_conn;
 
