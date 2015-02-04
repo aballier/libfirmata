@@ -32,47 +32,47 @@
 
 const char* firmata_get_msg_type_desc(struct firmata_msg* msg)
 {
-	static const char const * cmd_desc[256] = {
-		[START_SYSEX]         = "Start a MIDI Sysex message",
-		[SET_PIN_MODE]        = "Set pin mode",
-		[END_SYSEX]           = "End a MIDI Sysex message",
-		[VERSION_REPORT]      = "Protocol version report",
-		[ANALOG_IO]           = "Analog I/O message",
-		[DIGITAL_IO]          = "Digital I/O message",
-		[REPORT_ANALOG_PIN]   = "Report analog pin",
-		[REPORT_DIGITAL_PORT] = "Report digital port",
-		NULL
-	};
+    static const char const * cmd_desc[256] = {
+        [START_SYSEX]         = "Start a MIDI Sysex message",
+        [SET_PIN_MODE]        = "Set pin mode",
+        [END_SYSEX]           = "End a MIDI Sysex message",
+        [VERSION_REPORT]      = "Protocol version report",
+        [ANALOG_IO]           = "Analog I/O message",
+        [DIGITAL_IO]          = "Digital I/O message",
+        [REPORT_ANALOG_PIN]   = "Report analog pin",
+        [REPORT_DIGITAL_PORT] = "Report digital port",
+        NULL
+    };
 
-	if(cmd_desc[msg->start_code & 0xF0])
-		return cmd_desc[msg->start_code & 0xF0];
-	return cmd_desc[msg->start_code];
+    if(cmd_desc[msg->start_code & 0xF0])
+        return cmd_desc[msg->start_code & 0xF0];
+    return cmd_desc[msg->start_code];
 }
 
 const char* firmata_get_pin_mode_desc(uint8_t mode)
 {
-	static const char const * mode_desc[MODE_MAX] = {
-		[MODE_INPUT  ] = "Input",
-		[MODE_OUTPUT ] = "Output",
-		[MODE_ANALOG ] = "Analogic",
-		[MODE_PWM    ] = "Pulse width modulation",
-		[MODE_SERVO  ] = "Servo",
-		[MODE_SHIFT  ] = "Shift",
-		[MODE_I2C    ] = "I2C",
-		[MODE_ONEWIRE] = "One wire",
-		[MODE_STEPPER] = "Stepper",
-		[MODE_ENCODER] = "Encoder",
-	};
+    static const char const * mode_desc[MODE_MAX] = {
+        [MODE_INPUT  ] = "Input",
+        [MODE_OUTPUT ] = "Output",
+        [MODE_ANALOG ] = "Analogic",
+        [MODE_PWM    ] = "Pulse width modulation",
+        [MODE_SERVO  ] = "Servo",
+        [MODE_SHIFT  ] = "Shift",
+        [MODE_I2C    ] = "I2C",
+        [MODE_ONEWIRE] = "One wire",
+        [MODE_STEPPER] = "Stepper",
+        [MODE_ENCODER] = "Encoder",
+    };
 
-	return (mode < MODE_MAX ? mode_desc[mode] : NULL );
+    return (mode < MODE_MAX ? mode_desc[mode] : NULL );
 }
 
 ssize_t firmata_fill_supported_modes(uint64_t supported_modes, const char** values, ssize_t len)
 {
-	ssize_t pos = 0;
-	unsigned int i;
-	for(i=0;i<MODE_MAX && pos < len;i++)
-		if(supported_modes & (1 << i))
-			values[pos++] = firmata_get_pin_mode_desc(i);
-	return pos;
+    ssize_t pos = 0;
+    unsigned int i;
+    for(i=0;i<MODE_MAX && pos < len;i++)
+        if(supported_modes & (1 << i))
+            values[pos++] = firmata_get_pin_mode_desc(i);
+    return pos;
 }
