@@ -644,7 +644,3 @@ void firmata_del_callback(struct firmata_conn *c, int code, void (*cb)(void* arg
     }
     pthread_mutex_unlock(&c->cb_mutex);
 }
-
-/**
- * @endgroup callbacks
- */
