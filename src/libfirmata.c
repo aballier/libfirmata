@@ -513,9 +513,13 @@ struct firmata_conn *firmata_open(const char* devname, int baudrate)
     }
 
     memset(c, 0, sizeof(*c));
-    /* analog channel of 127 means invalid */
     for(i=0; i < MAX_NUM_PINS; i++)
+    {
+        /* analog channel of 127 means invalid */
         c->global_data.analog_map.analog_channel[i] = 127;
+        /* we use pin number 255 to mean not assigned */
+        c->global_data.pin_state[i].num = 255;
+    }
 
     pthread_mutex_init(&c->write_mutex, NULL);
     pthread_mutex_init(&c->cb_mutex, NULL);
