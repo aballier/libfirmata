@@ -580,7 +580,7 @@ struct firmata_conn *firmata_open(const char* devname, int baudrate)
         clock_gettime(CLOCK_REALTIME, &ts);
         ts.tv_sec += 1;
         ret = pthread_cond_timedwait(&c->ready_cond, &c->ready_mutex, &ts);
-        if(ret == ETIMEDOUT)
+        if(ret == ETIMEDOUT && retry < 3)
         {
             fprintf(stderr, "Timedout while waiting for response. Retrying another %i time(s)\n", retry);
             retry--;
