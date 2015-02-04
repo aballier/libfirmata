@@ -30,6 +30,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <semaphore.h>
+#include <errno.h>
 
 #include <firmata/libfirmata.h>
 
@@ -71,7 +72,11 @@ int main(int argc, char *argv[]) {
     else
         baudrate = 57600;
 
-    c = firmata_open(devname, baudrate);
+    if(!(c = firmata_open(devname, baudrate)))
+    {
+        fprintf(stderr, "Failed to open the device %s at rate %i\n", devname, baudrate);
+        return EINVAL;
+    }
 
     firmata_add_callback(c, CAPABILITY_RESPONSE, pin_info_cb);
     firmata_capability_query(c);
