@@ -41,37 +41,37 @@
  * @brief Represents the state of a connection to a firmata device.
  */
 struct firmata_conn {
-	/*! File descriptor of the serial connection */
-	int fd;
-	/*! Original termios attribs */
-	struct termios orig_attribs;
+    /*! File descriptor of the serial connection */
+    int fd;
+    /*! Original termios attribs */
+    struct termios orig_attribs;
 
-	/*! Reader thread */
-	pthread_t thd;
+    /*! Reader thread */
+    pthread_t thd;
 
-	/*! Mutex for writing to the serial port */
-	pthread_mutex_t write_mutex;
+    /*! Mutex for writing to the serial port */
+    pthread_mutex_t write_mutex;
 
-	/*! Mutex for accessing callback structures */
-	pthread_mutex_t cb_mutex;
+    /*! Mutex for accessing callback structures */
+    pthread_mutex_t cb_mutex;
 
-	/*! Callbacks */
-	void (*callbacks[255][MAX_CALLBACKS])(void* arg);
+    /*! Callbacks */
+    void (*callbacks[255][MAX_CALLBACKS])(void* arg);
 
     /*! Number of callbacks per type */
-	size_t num_callbacks[255];
+    size_t num_callbacks[255];
 
-	/*! Is the connection ready ? */
-	int ready;
+    /*! Is the connection ready ? */
+    int ready;
     /*! Mutex to lock when waiting on ready_cond */
-	pthread_mutex_t ready_mutex;
+    pthread_mutex_t ready_mutex;
     /*! Condition to wait for ready state */
-	pthread_cond_t  ready_cond;
+    pthread_cond_t  ready_cond;
 
-	/*! Mutex to lock when accessing below info */
-	pthread_mutex_t info_mutex;
+    /*! Mutex to lock when accessing below info */
+    pthread_mutex_t info_mutex;
 
-	/*! Information fetched asynchronously */
+    /*! Information fetched asynchronously */
     struct firmata_global_data global_data;
 };
 
