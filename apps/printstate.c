@@ -64,6 +64,12 @@ int main(int argc, char *argv[]) {
 
     s = firmata_get_global_state(c);
 
+    if(!s)
+    {
+        fprintf(stderr, "Failed to get global state of firmata.\n");
+        goto fail;
+    }
+
     printf("Protocol version = %i.%i\n", s->protocol_version.major, s->protocol_version.minor);
     printf("Firmware name = '%s', version = %i.%i\n", s->fw.name, s->fw.major, s->fw.minor);
 
@@ -112,6 +118,7 @@ int main(int argc, char *argv[]) {
     {
         fprintf(stderr, "firmata_put_global_state failed\n");
     }
+fail:
     firmata_close(c);
     return 0;
 }
