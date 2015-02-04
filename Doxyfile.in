@@ -1,0 +1,15 @@
+DOXYFILE_ENCODING      = UTF-8
+PROJECT_NAME           = @PACKAGE_NAME@
+PROJECT_NUMBER         = @PACKAGE_VERSION@
+PROJECT_BRIEF          = "Thread-safe asynchronous client library for firmata communications"
+OUTPUT_DIRECTORY       = doc
+CREATE_SUBDIRS         = NO
+ALLOW_UNICODE_NAMES    = NO
+OUTPUT_LANGUAGE        = English
+BRIEF_MEMBER_DESC      = YES
+REPEAT_BRIEF           = YES
+OPTIMIZE_OUTPUT_FOR_C  = YES
+INPUT_ENCODING         = UTF-8
+RECURSIVE              = YES
+GENERATE_HTML          = YES
+SOURCE_BROWSER         = YES
