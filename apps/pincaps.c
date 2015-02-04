@@ -28,6 +28,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <semaphore.h>
 
 #include <firmata/libfirmata.h>
@@ -54,10 +55,23 @@ static void pin_info_cb(void *arg)
     sem_post(&sem);
 }
 
-int main() {
+int main(int argc, char *argv[]) {
     struct firmata_conn *c = NULL;
+    const char* devname;
+    int baudrate;
     sem_init(&sem, 0, 0);
-    c = firmata_open("/dev/ttySAC0", 57600);
+
+    if(argc > 1)
+        devname = argv[1];
+    else
+        devname = "/dev/ttySAC0";
+
+    if(argc > 2)
+        baudrate = atoi(argv[2]);
+    else
+        baudrate = 57600;
+
+    c = firmata_open(devname, baudrate);
 
     firmata_add_callback(c, CAPABILITY_RESPONSE, pin_info_cb);
     firmata_capability_query(c);
