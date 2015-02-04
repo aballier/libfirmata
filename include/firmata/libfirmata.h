@@ -197,6 +197,11 @@ struct firmata_i2c_msg {
 /** @} */
 
 /**
+ * @brief Opaque structure representing a connection to a firmata device.
+ */
+struct firmata_conn;
+
+/**
  * @defgroup globalstate Global state
  * @brief Global state of a firmata device.
  * @{
@@ -214,12 +219,26 @@ struct firmata_global_data {
     struct encoder_values_msg   encoders;                /*!< Encoder states */
 };
 
-/** @} */
-
-/** 
- * @brief Opaque structure representing a connection to a firmata device.
+/**
+ * @brief Get the global state of a firmata connection.
+ *
+ * After calling firmata_get_global_state(), the calling thread holds a mutex on the global state
+ * meaning no callback will be processed until firmata_put_global_state() is called from the same thread.
+ *
+ * @param[in] c Pointer to the corresponding firmata_conn.
+ * @return A pointer to the read-only state of the firmata connection.
  */
-struct firmata_conn;
+const struct firmata_global_data *firmata_get_global_state(struct firmata_conn *c);
+
+/**
+ * @brief Gives back the global state to a firmata connection.
+ * @param[in] c Pointer to the corresponding firmata_conn.
+ * @param[in] s Pointer to the read-only state of the firmata connection.
+ * @return 0 in case of success, a negative value representing the error otherwise.
+ */
+int firmata_put_global_state(struct firmata_conn *c, const struct firmata_global_data *s);
+
+/** @} */
 
 /**
  * @defgroup basic Basic functions
@@ -290,7 +309,7 @@ const char* firmata_get_msg_type_desc(struct firmata_msg* msg);
 
 /**
  * @brief Get the description of the mode of a given pin.
- * 
+ *
  * @param[in] mode Pin mode.
  * @return A pointer to a constant string representing the mode. NULL if not found.
  */

@@ -34,16 +34,20 @@ lib_LTLIBRARIES = libfirmata.la
 libfirmata_la_SOURCES = \
 	src/descriptions.c \
 	src/libfirmata.c \
-	src/output.c
+	src/output.c \
+	src/state.c
 
 libfirmata_la_LDFLAGS = -version-info 0:0:0
 libfirmata_la_CFLAGS  = -pthread
 noinst_HEADERS = src/libfirmata_internal.h
 
-bin_PROGRAMS = firmata_get_pincaps
+bin_PROGRAMS = firmata_get_pincaps firmata_printstate
 firmata_get_pincaps_SOURCES = apps/pincaps.c
 firmata_get_pincaps_CFLAGS = -pthread
 firmata_get_pincaps_LDADD  = libfirmata.la
+
+firmata_printstate_SOURCES = apps/printstate.c
+firmata_printstate_LDADD  = libfirmata.la
 
 firmatainclude_HEADERS = \
 	include/firmata/libfirmata.h \
