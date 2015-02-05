@@ -482,7 +482,7 @@ static void process_message(struct firmata_conn *c)
                     arg = &ev;
                     break;
                 default:
-                    return;
+                    break;
             }
             process_callbacks(c, msg.msg_type, arg);
     }
