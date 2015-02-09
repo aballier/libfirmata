@@ -29,6 +29,9 @@ ACLOCAL_AMFLAGS = -I m4
 
 AM_CPPFLAGS = -I $(top_srcdir)/include
 
+pkgconfigdir=$(libdir)/pkgconfig
+
+
 lib_LTLIBRARIES = libfirmata.la
 
 libfirmata_la_SOURCES = \
@@ -53,6 +56,8 @@ firmatainclude_HEADERS = \
 	include/firmata/libfirmata.h \
 	include/firmata/protocol.h
 
+pkgconfig_DATA=pkgconfig/libfirmata.pc
+
 if CXX
 firmatainclude_HEADERS += include/firmata/libfirmatapp.h
 lib_LTLIBRARIES+=libfirmatapp.la
@@ -63,7 +68,10 @@ libfirmatapp_la_LIBADD  = libfirmata.la
 bin_PROGRAMS+=firmata_cpp_gen_pincaps
 firmata_cpp_gen_pincaps_SOURCES = apps/cpp_pincaps.cc
 firmata_cpp_gen_pincaps_LDADD   = libfirmatapp.la libfirmata.la
+pkgconfig_DATA+=pkgconfig/libfirmatapp.pc
 endif
+
+EXTRA_DIST=pkgconfig/libfirmata.pc.in pkgconfig/libfirmatapp.pc.in
 
 firmataincludedir = ${prefix}/include/firmata
 

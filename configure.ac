@@ -31,7 +31,7 @@ AC_INIT([libfirmata], [0.1], [alexis.ballier@cyclonit.com])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([subdir-objects foreign -Wall -Werror dist-xz])
 
-AC_CONFIG_FILES([Makefile Doxyfile])
+AC_CONFIG_FILES([Makefile Doxyfile pkgconfig/libfirmata.pc pkgconfig/libfirmatapp.pc])
 
 AC_PROG_CC
 AC_PROG_CXX
