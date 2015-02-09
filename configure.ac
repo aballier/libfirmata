@@ -26,7 +26,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 AC_PREREQ([2.64])
-AC_INIT([libfirmata], [0.1], [alexis.ballier@cyclonit.com])
+AC_INIT([libfirmata], [0.2], [alexis.ballier@cyclonit.com])
 
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([subdir-objects foreign -Wall -Werror dist-xz])
