@@ -19,7 +19,7 @@ config.status
 config.sub
 depcomp
 install-sh
-libfirmata.la
+*.la
 libtool
 missing
 .deps/
