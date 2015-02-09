@@ -34,8 +34,12 @@ AM_INIT_AUTOMAKE([subdir-objects foreign -Wall -Werror dist-xz])
 AC_CONFIG_FILES([Makefile Doxyfile])
 
 AC_PROG_CC
+AC_PROG_CXX
 m4_pattern_allow([AM_PROG_AR])
 AM_PROG_AR
+
+AC_ARG_ENABLE([cxx], [--enable-cxx Enable C++ bindings])
+AM_CONDITIONAL([CXX], [ test "x${enable_cxx}" = "xyes" ])
 
 LT_INIT
 

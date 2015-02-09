@@ -53,6 +53,18 @@ firmatainclude_HEADERS = \
 	include/firmata/libfirmata.h \
 	include/firmata/protocol.h
 
+if CXX
+firmatainclude_HEADERS += include/firmata/libfirmatapp.h
+lib_LTLIBRARIES+=libfirmatapp.la
+libfirmatapp_la_SOURCES = \
+	src/libfirmatapp.cc
+libfirmatapp_la_LDFLAGS = -version-info 0:0:0
+libfirmatapp_la_LIBADD  = libfirmata.la
+bin_PROGRAMS+=firmata_cpp_gen_pincaps
+firmata_cpp_gen_pincaps_SOURCES = apps/cpp_pincaps.cc
+firmata_cpp_gen_pincaps_LDADD   = libfirmatapp.la libfirmata.la
+endif
+
 firmataincludedir = ${prefix}/include/firmata
 
 htmldoc: $(top_builddir)/Doxyfile
