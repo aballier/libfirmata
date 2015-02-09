@@ -28,10 +28,6 @@
  */
 
 #include <errno.h>
-extern "C" {
-#include "firmata/libfirmata.h"
-}
-
 #include "firmata/libfirmatapp.h"
 
 FirmataConn::FirmataConn(const char* devname, int baudrate) :
