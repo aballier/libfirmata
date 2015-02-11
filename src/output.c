@@ -194,7 +194,7 @@ static void firmata_set_digital_pin_value(struct firmata_conn *c, uint8_t pin, u
 
 static void firmata_set_analog_value(struct firmata_conn *c, uint8_t pin, uint32_t value)
 {
-    if(pin < (1 << 4) && value < (1 << 14))
+    if(pin < (1 << 4) && value < (1U << 8))
     {
         /*
          * Analog 14-bit data format
@@ -207,7 +207,7 @@ static void firmata_set_analog_value(struct firmata_conn *c, uint8_t pin, uint32
         const uint8_t buf[] = {
             ANALOG_IO | (pin & 0x0F),
             value & 0x7F,
-            (value >> 7) & 0x7F
+            (value >> 7) & 0x01
         };
         firmata_send_msg(c, buf, sizeof(buf));
     }
@@ -238,7 +238,7 @@ static void firmata_set_analog_value(struct firmata_conn *c, uint8_t pin, uint32
         buf[pos++] = EXTENDED_ANALOG;
         buf[pos++] = (pin & 0x7F);
         buf[pos++] = (value & 0x7F);
-        for(shift = 7; value >= (1 << shift); shift += 7)
+        for(shift = 7; shift < 8 * sizeof(value) && value >= (1 << shift); shift += 7)
             buf[pos++] = ((value >> shift) & 0x7F);
         buf[pos++] = END_SYSEX;
         firmata_send_msg(c, buf, pos);
