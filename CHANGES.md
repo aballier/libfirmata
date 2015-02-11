@@ -1,3 +1,9 @@
+Version 0.3
+===========
+
+- Avoid possible overflow in analog writes.
+- Do extended analog writes when value is >= 255.
+
 Version 0.2
 ===========
 
